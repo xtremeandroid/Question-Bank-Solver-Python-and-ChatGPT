@@ -10,23 +10,18 @@ from tkinter import filedialog
 from tkinter import *
 import subprocess
 
-
 # declarations
 questions = []
 randomFileName = ''
 
-
 # Define OpenAI API key 
-openai.api_key = ""
+openai.api_key = "OPENAI API KEY HERE"
 model_engine = "text-davinci-003"
-
-
 
 # functions
 def saveFileLocation():
     app.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Word document","*.docx"),("all files","*.*")))
     fileNameLabel.configure(text="Selected File : " + app.filename, text_color="green")
-
 
 def readDocx():
     f = open(app.filename, 'rb')
@@ -69,24 +64,18 @@ def solveFunction():
     except:
          solveLabel.configure(text="Please Try Again Later", text_color="red")
 
-
 # GUI Elements
 app = customtkinter.CTk()
 app.geometry("720x480")
 app.title("Question Bank Solver")
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
-
 browseButton = customtkinter.CTkButton(app, text="Select Question Bank (Word Document)", command=saveFileLocation)
 browseButton.pack(padx=10, pady=10)
-
 fileNameLabel = customtkinter.CTkLabel(app, text="")
 fileNameLabel.pack()
-
 solveButton = customtkinter.CTkButton(app, text="Solve and Save PDF", command=solveFunction)
 solveButton.pack(padx=10, pady=10)
-
 solveLabel = customtkinter.CTkLabel(app, text="")
 solveLabel.pack()
-
 app.mainloop()
