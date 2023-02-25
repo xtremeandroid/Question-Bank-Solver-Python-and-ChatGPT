@@ -3,6 +3,14 @@
 Simple Python program to solve question banks using ChatGPT API.
 Note : Make sure to Add OpenAI API Key Before Executing this program 
 
+# How to Run
+
+Install Dependencies
+
+pip install tkinter customtkinter openai python-docx docx2pdf
+
+Get Your API Key from OpenAI Website and Copy it into "API KEY" section with ""
+
 # Screenshots
 
 ![1](https://user-images.githubusercontent.com/62198074/220728650-a2c4f455-ad04-41f2-b9b2-27ff6686ccb3.png)
