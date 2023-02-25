@@ -13,12 +13,11 @@ import subprocess
 
 # declarations
 questions = []
-randomFileName = "answers" + str(uuid.uuid4())
-document = Document()
-document.add_heading('Solutions', 0)
+randomFileName = ''
+
 
 # Define OpenAI API key 
-openai.api_key = "API KEY"
+openai.api_key = ""
 model_engine = "text-davinci-003"
 
 
@@ -28,15 +27,21 @@ def saveFileLocation():
     app.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Word document","*.docx"),("all files","*.*")))
     fileNameLabel.configure(text="Selected File : " + app.filename, text_color="green")
 
+
 def readDocx():
-    doc = Document(app.filename)
+    f = open(app.filename, 'rb')
+    doc = Document(f)
+    f.close()
+    questions.clear()
     for docpara in doc.paragraphs:
         questions.append(docpara.text)
-
 
 def solveFunction():
     try:
             readDocx()
+            randomFileName = "answers" + str(uuid.uuid4())
+            document = Document()
+            document.add_heading('Solutions', 0)
             for x in range(len(questions)):
                 prompt = questions[x]
                 completion = openai.Completion.create(
@@ -55,6 +60,7 @@ def solveFunction():
                 quest.bold = True
                 ans.font.size = Pt(12)
             
+            solveLabel.configure(text="Saving PDF", text_color="green")
             document.save(randomFileName + ".docx")
             convert(randomFileName + ".docx")
             os.remove(randomFileName + ".docx")
@@ -84,19 +90,3 @@ solveLabel = customtkinter.CTkLabel(app, text="")
 solveLabel.pack()
 
 app.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
